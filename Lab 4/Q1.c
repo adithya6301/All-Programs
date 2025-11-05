@@ -20,3 +20,8 @@ Node* createNode(int data)
     newNode->next=NULL;
     return;
 }
+
+void insertBefore()
+{
+    
+}
