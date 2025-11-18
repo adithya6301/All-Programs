@@ -98,12 +98,82 @@ void iterativeIn(Node* root)
     }
 }
 
+//RECURSIVE POSTORDER
+void recursivePost(Node* root)
+{
+    if(root!=NULL){
+        recursivePost(root->left);
+        recursivePost(root->right);
+        printf("%d ",root->data);
+    }
+}
+
+//ITERATIVE POSTORDER
+void iterativePost(Node* root)
+{
+    if(root==NULL){
+        printf("\nEmpty");
+        return;
+    }
+    Node* stack1[100];
+    Node* stack2[100];
+    int top1 = -1,top2 = -1;
+
+    stack1[++top1] = root;
+    while(top1!=-1)
+    {
+        Node* node = stack1[top1--];
+        stack2[++top2] = node;
+        if(node->left)
+            stack1[++top1] = node->left;
+        if(node->right)
+            stack1[++top1] = node->right;
+    }
+
+    while(top2!= -1)
+    {
+        printf("%d ",stack2[top2--]->data);
+    }
+}
+
+//RECURSIVE PREORDER
+void recursivePre(Node* root)
+{
+    if(root!=NULL){
+        printf("%d ",root->data);
+        recursivePre(root->left);
+        recursivePre(root->right);
+    }
+}
+
+//ITERATIVE PREORDER
+void iterativePre(Node* root)
+{
+    if(root==NULL){
+        printf("\nEmpty!");
+        return;
+    }
+    Node* stack[100];
+    int top = -1;
+    stack[++top]=root;
+    while(top!=-1)
+    {
+        Node* node = stack[top--];
+        printf("%d ",node->data);
+
+        if(node->right)
+            stack[++top]=node->right;
+        if(node->left)
+            stack[++top]=node->left;
+    }
+}
+
 int main()
 {
     int ch,data;
     while(1)
     {
-        printf("\nMENU\n1.Insert Nodes\n2.Recursive Inorder Traversal\n3.Iterative Inorder Traversal\nEnter choice: ");
+        printf("\nMENU\n1.Insert Nodes\n2.Recursive Inorder Traversal\n3.Iterative Inorder Traversal\n4.Recursive Postorder\n5.Iterative postorder\n6.Recursive Preorder\n7.Iterative Preorder\nEnter choice: ");
         scanf("%d",&ch);
 
         switch(ch)
@@ -120,6 +190,22 @@ int main()
         case 3:
             printf("\nIterative Inorder Traversal : ");
             iterativeIn(root);
+            break;
+        case 4:
+            printf("\nRecursive Postorder Traversal : ");
+            recursivePost(root);
+            break;
+        case 5:
+            printf("\nIterative Postorder Traversal : ");
+            iterativePost(root);
+            break;
+        case 6:
+            printf("\nRecursive Preorder Traversal : ");
+            recursivePre(root);
+            break;
+        case 7:
+            printf("\nIterative Preorder Traversal : ");
+            iterativePre(root);
             break;
         default:
             printf("\nInvalid option! Try again! ");
